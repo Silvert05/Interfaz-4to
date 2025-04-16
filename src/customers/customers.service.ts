@@ -83,7 +83,7 @@ export class CustomersService {
     patch(id: number, body: CustomerPatchDto) {
         let previousCustomer = this.getCustomersById(id);
         if(! previousCustomer)throw new Error ('Customer No existe');
-        let customer: Customer = {
+        let customer = {
           ...previousCustomer,
           ...body,
           id:previousCustomer.id
@@ -91,5 +91,6 @@ export class CustomersService {
         this.customers = this.customers.map((item) => {
           return item.id == id ? customer : item;
         });
+        return customer;
       }
 }
