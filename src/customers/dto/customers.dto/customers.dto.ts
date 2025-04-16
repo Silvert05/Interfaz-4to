@@ -8,10 +8,15 @@ export class CustomersDto {
     name: string;
 
     @Type(() => Number)
-    @IsInt({ message: 'La edad debe ser un número entero' })
-    age: number;
+  @IsInt({ message: 'La edad debe ser un número entero' })
+  @Matches(/^\d+$/, { message: 'La edad debe contener solo números' })
+  age: number;
 
     @Type(() => Date)
     @IsDate({ message: 'La fecha de nacimiento debe tener el formato AAAA-MM-DD' })
     birthday: Date;
+
+    @IsString({message: 'colocar  su lugar de recidencia completa '})
+    recidence:string;
+
 }

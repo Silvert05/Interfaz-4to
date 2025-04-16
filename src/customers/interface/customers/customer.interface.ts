@@ -3,4 +3,5 @@ export interface Customer {
     name: string;
     age: number;
     birthday: Date;
+    recidence:string
 }
