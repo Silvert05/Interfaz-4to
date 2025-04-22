@@ -14,7 +14,7 @@ export class TagDto {
     // Descripción
     @IsDefined({ message: 'La descripción es obligatoria' })
     @IsString({ message: 'La descripción debe ser una cadena de texto' })
-    @MaxLength(10, { message: 'La descripción debe tener como máximo 10 caracteres' })
+    @MaxLength(100, { message: 'La descripción debe tener como máximo 100 caracteres' })
     @MinLength(1, { message: 'La descripción no puede estar vacía' })
     @Matches(/\S/, { message: 'La descripción no puede contener solo espacios' })
 
