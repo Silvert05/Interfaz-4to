@@ -1,24 +1,41 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
-import { User } from './users.entity';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Put } from '@nestjs/common';
+import {users} from './users.entity'
 import { UsersService } from './users.service';
-import { find } from 'rxjs';
-import { create } from 'domain';
+import { promises } from 'dns';
+
 @Controller('users')
 export class UsersController {
-    constructor(private readonly userService : UsersService){}
+    constructor(private readonly usersService: UsersService){}
 
     @Get()
-    findAll(): Promise<User[]>{
-        return this.userService.findAll();
+    findAll(): Promise<users[]>{
+        return this.usersService.findAll();
     }
 
-        @Get(':id')
-        findOne(@Param('id',ParseIntPipe) id: number):Promise<User>{
-            return this.userService.findOne(id);
-        }
+    @Get(':id') 
+     async findOne(@Param('id') id: string): Promise<users> { 
+       return this.usersService.findOne(id);
+     }
 
-        @Post()
-        create(@Body() user :User):Promise<User>{
-            return this.userService.create(user);
-        }
+    @Post()
+    create (@Body() users: users): Promise<users>{
+        return this.usersService.create(users);
+    }
+    
+    @Delete('id')
+    async deleteUser(@Param ('id')id:string):Promise<void>{
+        return this.usersService.delete(id);
+    }
+    
+    @Put(':id') 
+    async updateUser(@Param('id') id: string, @Body() user: Partial<users>): Promise<users> {            
+        return this.usersService.update(id, user); 
+    }
+
+    @Patch(':id') // Endpoint para actualizar parcialmente un usuario por su id
+    async partialUpdateUser(@Param('id') id: string, @Body() user: Partial<users>): Promise<users> {
+        return this.usersService.update(id, user); // Llama al método update del servicio
+
+}
+
 }

@@ -1,23 +1,35 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { IsEmail, IsNotEmpty, IsString, IsDateString, IsInt, Min } from 'class-validator';
 
 @Entity()
-export class User {
+export class users {
+    
+    @PrimaryGeneratedColumn('uuid')
+    id: string; // uuidv4
 
-  @PrimaryGeneratedColumn()
-  id: number;
+    @Column()
+    @IsNotEmpty()
+    @IsString()
+    name: string;
 
-  @Column('varchar', {length:50})
-  name: string;
+    @Column()
+    @IsNotEmpty()
+    @IsString()
+    last_name: string;
 
-  @Column('varchar', {length:50})
-  last_name: string;
+    @Column()
+    @IsNotEmpty()
+    @IsEmail()
+    email: string;
 
-  @Column('varchar', {length:50})
-  email: string;
+    @Column()
+    @IsNotEmpty()
+    @IsDateString()  // Para que se valide como una fecha en formato ISO
+    birthday: string;
 
-  @Column()
-  birthday: Date;
-
-  @Column('int',{width:10})
- identification:number;
+    @Column()
+    @IsNotEmpty()
+    @IsInt()  // Aseguramos que es un número entero
+    @Min(10000000)  // Este es un ejemplo de un mínimo para la identificación (puedes ajustarlo según el caso)
+    identification: number;
 }
